@@ -47,6 +47,25 @@ app.post("/api/notes", (req, res) => {
         });
 });
 
+app.delete("/api/notes/:id", (req, res) => {
+    readFromFile("./db/db.json")
+        .then((data) => JSON.parse(data))
+        .then((notes) => {
+            const deleteNote = notes.filter(
+                (noteToDeleted) => noteToDeleted.id !== req.params.id
+            );
+            fs.writeFile(
+                "./db/db.json",
+                JSON.stringify(deleteNote, null, 4),
+                (err) =>
+                    err
+                        ? console.error(err)
+                        : console.info(`\nData written to /db/db.json`)
+            );
+            res.json(deleteNote);
+        });
+});
+
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "/public/index.html"));
 });
