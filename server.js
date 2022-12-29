@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const { v4: uuidv4 } = require("uuid");
 const fs = require("fs");
 const util = require("util");
 // Promise version of fs.readFile
@@ -23,6 +24,27 @@ app.get("/notes", (req, res) => {
 });
 app.get("/api/notes", (req, res) => {
     readFromFile("./db/db.json").then((data) => res.json(JSON.parse(data)));
+});
+
+app.post("/api/notes", (req, res) => {
+    readFromFile("./db/db.json")
+        .then((data) => JSON.parse(data))
+        .then((json) => {
+            const notes = json;
+            const newNotes = req.body;
+            newNotes.id = uuidv4();
+            notes.push(newNotes);
+
+            fs.writeFile(
+                "./db/db.json",
+                JSON.stringify(notes, null, 4),
+                (err) =>
+                    err
+                        ? console.error(err)
+                        : console.info(`\nData written to /db/db.json`)
+            );
+            res.json(notes);
+        });
 });
 
 app.get("*", (req, res) => {
