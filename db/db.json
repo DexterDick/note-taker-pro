@@ -4,8 +4,13 @@
         "text": "Test text"
     },
     {
-        "title": "This is a test",
-        "text": "test 123\n",
-        "id": "f8f3cfa5-65d6-4dc9-9435-2a7beef6a23a"
+        "title": "buy milk",
+        "text": "Get milk\n",
+        "id": "cac66904-8872-46f6-9719-c447a1ea980d"
+    },
+    {
+        "title": "summer is fun",
+        "text": "This is cool\n",
+        "id": "2707aa77-75b7-4ac5-a4b6-d940ecd72ea5"
     }
 ]
